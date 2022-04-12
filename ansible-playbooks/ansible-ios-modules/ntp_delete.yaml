@@ -1,0 +1,16 @@
+#simple IOS config in ansible
+---
+- name: Sample IOS NTP config for Ansible 2.5
+  hosts: ir1835
+  gather_facts: no
+  vars_prompt:
+    - name: ip
+      prompt: "NTP server number [1-10]?"
+      private: no
+
+  tasks:
+    - name: delete ntp server server 10.{{item}}.10.65 via CLI
+      ios_config:
+        lines:
+          - no ntp server 10.{{item}}.10.65
+      with_items: "{{ip}}"

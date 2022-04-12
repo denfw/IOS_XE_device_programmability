@@ -1,0 +1,18 @@
+
+        <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+        <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+          <interface>
+                <name>Vlan111</name>
+                <description>NETCONF test description</description>
+                <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:l3ipvlan</type>
+                <enabled>true</enabled>
+                <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+                    <address>
+                        <ip>8.8.8.8</ip>
+                        <netmask>255.255.255.0</netmask>
+                    </address>
+                </ipv4>
+            </interface>
+        </interfaces>
+    </config>
+    

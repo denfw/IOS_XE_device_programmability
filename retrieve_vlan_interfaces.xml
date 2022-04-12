@@ -1,0 +1,6 @@
+<native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <interface>
+        <Vlan>
+        </Vlan>
+    </interface>
+</native>

@@ -1,0 +1,27 @@
+---
+- name: NETCONF create NTP server
+  hosts: ir1835
+  connection: local
+  gather_facts: False
+  vars_prompt:
+    - name: ntp_num
+      prompt: "What NTP Server number to Configure?"
+      private: no
+  tasks:
+    - set_fact:
+        ansible_connection: netconf
+
+    - name: Define NTP server 10.111.{{ntp_num}}.66 with NETCONF
+      netconf_config:
+        xml: |
+          <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
+            <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+              <ntp>
+                <server xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ntp">
+                  <server-list>
+                    <ip-address>10.111.{{ntp_num}}.66</ip-address>
+                  </server-list>
+                </server>
+              </ntp>
+            </native>
+          </config>

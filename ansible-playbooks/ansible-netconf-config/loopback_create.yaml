@@ -1,0 +1,40 @@
+---
+- name: NETCONF sample 1
+  hosts: ir1835
+  connection: netconf
+  gather_facts: False
+  vars_prompt:
+    - name: loopback_num
+      prompt: "What Loopback Number to Configure?"
+      private: no
+
+  tasks:
+    - set_fact:
+        ansible_connection: netconf
+
+    - name: Create a loopback Loopback1{{loopback_num}} with NETCONF
+      netconf_config:
+        # host: "{{inventory_hostname}}"
+        # port: "{{netconf_port}}"
+        # username: "{{ansible_user}}"
+        # password: "{{ansible_password}}"
+        # hostkey_verify: False
+        xml: |
+          <config>
+            <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+              <interface>
+                <name>Loopback1{{loopback_num}}</name>
+                <description>Ansible NETCONF created LO {{loopback_num}}</description>
+                <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">
+                  ianaift:softwareLoopback
+                </type>
+                <enabled>true</enabled>
+                <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+                  <address>
+                    <ip>10.111.{{loopback_num}}.2</ip>
+                    <netmask>255.255.255.255</netmask>
+                  </address>
+                </ipv4>
+              </interface>
+            </interfaces>
+          </config>
