@@ -31,12 +31,19 @@ import click
 
 @click.group()
 def cli():
-    """Simple script to perform various tasks on IOS XE devices"""
+    """Simple script to perform various tasks on IOS XE devices using NETCONF"""
     pass
 
 @click.command(name="get-request")
 @click.argument('xmlstring', type=click.File(mode='r'))
 def get_request(xmlstring):
+    """
+    Generic <get-config> Request using NETCONF
+
+    Requires a XML filter file 
+
+    eg. python ir1835_netconf.py get-request retrieve_vlan_interfaces.xml            
+    """
     print("XML FILTER:")
     netconf_filter=xmlstring.read()
     print(netconf_filter)
@@ -56,6 +63,13 @@ def get_request(xmlstring):
 @click.command(name="edit-request")
 @click.argument('xmlstring', type=click.File(mode='r'))
 def edit_request(xmlstring):
+    """
+    Generic <edit-config> Request using NETCONF
+
+    Requires a XML config file
+
+    eg. python ir1835_netconf.py edit-request config.xml
+    """
     print("XML CONFIG STRING:")
     netconf_filter = xmlstring.read()
     print(netconf_filter)
@@ -76,6 +90,13 @@ def edit_request(xmlstring):
 @click.argument('address')
 @click.argument('mask')
 def create_config_file(name, address, mask):
+    """
+    Simple XML VLAN config generation 
+
+    Requires VLAN name, IP and subnet mask
+
+    eg. python ir1835_netconf.py create-config Vlan111 8.8.8.8 255.255.255.0    
+    """
     nc_config=f"""
         <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
         <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">

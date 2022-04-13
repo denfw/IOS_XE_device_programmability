@@ -42,7 +42,7 @@ headers = {
 
 @click.group()
 def cli():
-    """Simple script to perform various tasks on IOS XE devices"""
+    """Simple script to perform various tasks on IOS XE devices using"""
     pass
 
 
@@ -130,6 +130,10 @@ def get_vlan_interfaces():
 def add_vlan_interface(name, address, mask):
     """
     Configure a new VLAN interface on the router
+    
+    Requires VLAN name, IP, subnet mask
+
+    eg: python ir1835_restconf.py add-vlan 5 5.5.5.5 255.255.255.0
     """
     url = f"https://{ir1835['host']}/restconf/data/Cisco-IOS-XE-native:native/interface"
 
