@@ -1,0 +1,8 @@
+ansible>=5.6.0
+ansible-core>=2.12.4
+ncclient>=0.6.12
+lxml>=4.6.3
+click>=8.1.2
+requests>=2.20.0
+prettytable>=3.2.0
+urllib3>=1.22
